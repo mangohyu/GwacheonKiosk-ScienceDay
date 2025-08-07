@@ -3,61 +3,282 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>과천 애플리케이션</title>
+    <title>과학데이의 시작과 열기 - 키오스크</title>
     <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 </head>
 <body>
-    <div class="container">
-        <header class="header">
-            <h1>과천 애플리케이션</h1>
-            <p>윈도우7 호환 일렉트론 앱</p>
-        </header>
-        
-        <main class="main-content">
-            <div class="card">
-                <h2>환영합니다!</h2>
-                <p>이 애플리케이션은 윈도우7에서 실행 가능하도록 설계되었습니다.</p>
-                <button id="testButton" class="btn">테스트 버튼</button>
-            </div>
-            
-            <div class="card">
-                <h2>시스템 정보</h2>
-                <div id="systemInfo" class="info-grid">
-                    <div class="info-item">
-                        <span class="label">플랫폼:</span>
-                        <span id="platform" class="value">로딩 중...</span>
-                    </div>
-                    <div class="info-item">
-                        <span class="label">Node.js 버전:</span>
-                        <span id="nodeVersion" class="value">로딩 중...</span>
-                    </div>
-                    <div class="info-item">
-                        <span class="label">일렉트론 버전:</span>
-                        <span id="electronVersion" class="value">로딩 중...</span>
-                    </div>
-                    <div class="info-item">
-                        <span class="label">Chrome 버전:</span>
-                        <span id="chromeVersion" class="value">로딩 중...</span>
-                    </div>
+    <!-- 상단 고정 UI -->
+    <header class="kiosk-header">
+
+    </header>
+
+    <!-- 메인 컨테이너 -->
+    <main class="kiosk-container">
+        <!-- 메인 화면 -->
+        <div id="mainScreen" class="screen active">
+            <div class="hero-section">
+                <div class="hero-content">
+                    <h2 class="hero-title">
+                        <img src="assets/img/title_text.png" style="width: 800px;" alt="과학데이 로고" class="hero-logo">
+                    </h2>
                 </div>
             </div>
             
-            <div class="card">
-                <h2>기능 테스트</h2>
-                <div class="button-group">
-                    <button id="alertBtn" class="btn btn-secondary">알림 표시</button>
-                    <button id="fileBtn" class="btn btn-secondary">파일 선택</button>
-                    <button id="timeBtn" class="btn btn-secondary">현재 시간</button>
+            <div class="menu-grid">
+                <div class="menu-item" data-screen="poster">
+                    <div class="glass-specular"></div>
+                    <div class="glass-content">
+                        <div class="menu-icon">🖼️</div>
+                        <h3>과학데이 포스터</h3>
+                        <p>1934~1937년 과학데이 포스터</p>
+                    </div>
                 </div>
-                <div id="output" class="output-area"></div>
+                
+                <div class="menu-item" data-screen="photos">
+                    <div class="glass-specular"></div>
+                    <div class="glass-content">
+                        <div class="menu-icon">📸</div>
+                        <h3>과학데이 사진</h3>
+                        <p>선전행렬, 강연회, 퍼레이드</p>
+                    </div>
+                </div>
+                
+                <div class="menu-item" data-screen="cardnews">
+                    <div class="glass-specular"></div>
+                    <div class="glass-content">
+                        <div class="menu-icon">📚</div>
+                        <h3>과학데이 카드뉴스</h3>
+                        <p>동아사이언스 카드뉴스</p>
+                    </div>
+                </div>
             </div>
-        </main>
-        
-        <footer class="footer">
-            <p>&copy; 2024 과천 애플리케이션. 일렉트론 22.3.27 기반</p>
-        </footer>
-    </div>
-    
+        </div>
+
+        <!-- 포스터 보기 화면 -->
+        <div id="posterScreen" class="screen">
+            <!-- 네비게이션 버튼 -->
+            <div class="nav-buttons">
+                <button class="nav-btn" data-screen="main">홈</button>
+                <button class="nav-btn active" data-screen="poster">과학데이 포스터</button>
+                <button class="nav-btn" data-screen="photos">과학데이 사진</button>
+                <button class="nav-btn" data-screen="cardnews">과학데이 카드뉴스</button>
+            </div>
+            
+            <div class="poster-slider-container">
+                <!-- Swiper -->
+                <div class="swiper poster-swiper">
+                    <div class="swiper-wrapper">
+                        <!-- Slide 1 -->
+                        <div class="swiper-slide">
+                            <div class="poster-single" data-poster-index="0">
+                                <img src="assets/img/poster/과학데이3_제1회포스터.JPG" alt="1934년 제1회 과학데이 포스터" class="poster-image">
+                                <div class="poster-info">
+                                    <h4>1회 과학데이 포스터<br/>(1934.4.18, 조선일보)</h4>
+                                    <p>전기를 상징하는 번개 모양, 태엽과 같은 기계부품이 그려 전기와 기계를 통해 현대 문명과 산업화의 발전을 상징한 그림</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Slide 2 -->
+                        <div class="swiper-slide">
+                            <div class="poster-single" data-poster-index="1">
+                                <img src="assets/img/poster/과학데이4_제2회과학데이포스터_1935_.png" alt="1935년 제2회 과학데이 포스터" class="poster-image">
+                                <div class="poster-info">
+                                    <h4>1935년 제2회 과학데이</h4>
+                                    <p>과학의 진보를 상징하는 포스터</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Slide 3 -->
+                        <div class="swiper-slide">
+                            <div class="poster-single" data-poster-index="2">
+                                <img src="assets/img/poster/과학데이5_1936년 제3회 과학데이포스터.png" alt="1936년 제3회 과학데이 포스터" class="poster-image">
+                                <div class="poster-info">
+                                    <h4>1936년 제3회 과학데이</h4>
+                                    <p>전국적인 과학 행사 포스터</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Slide 4 -->
+                        <div class="swiper-slide">
+                            <div class="poster-single" data-poster-index="3">
+                                <img src="assets/img/poster/과학데이6_제5회과학데이 포스터(1937, 동아일보).png" alt="1937년 제5회 과학데이 포스터" class="poster-image">
+                                <div class="poster-info">
+                                    <h4>1937년 제5회 과학데이</h4>
+                                    <p>과학데이의 완성을 상징하는 포스터</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Slide 5 -->
+                        <div class="swiper-slide">
+                            <div class="poster-single" data-poster-index="4">
+                                <img src="assets/img/poster/과학데이1_2_제1회포스터.png" alt="제1회 과학데이 포스터 상세" class="poster-image">
+                                <div class="poster-info">
+                                    <h4>자이스 모텔Ⅱ</h4>
+                                    <p>1926년 독일에서 출시된 자이스 모텔Ⅱ(Zeiss Model Ⅱ) 천체투영기로 최첨단 기술의 상징으로 포스터에 그림</p>
+                                    <div class="poster-note">※ 아시아 최초의 천체투영관은 1937년 일본 오사카시립전기박물관에 설립됨</div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Slide 6 -->
+                        <div class="swiper-slide">
+                            <div class="poster-single empty-poster" data-poster-index="5">
+                                <div class="poster-info">
+                                    <h4>더 많은 포스터</h4>
+                                    <p>1930년대 과학데이의 다양한 포스터들을 확인해보세요</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Swiper Navigation -->
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
+                    <!-- Swiper Pagination -->
+                    <div class="swiper-pagination"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 사진으로 보는 현장 화면 -->
+        <div id="photosScreen" class="screen">
+            <!-- 네비게이션 버튼 -->
+            <div class="nav-buttons">
+                <button class="nav-btn" data-screen="main">홈</button>
+                <button class="nav-btn" data-screen="poster">과학데이 포스터</button>
+                <button class="nav-btn active" data-screen="photos">과학데이 사진</button>
+                <button class="nav-btn" data-screen="cardnews">과학데이 카드뉴스</button>
+            </div>
+            
+            <div class="photo-gallery">
+                <div class="photo-item">
+                    <img src="assets/img/photo/과학데이사진2_과학데이자동차선전행렬(동아일보, 1935).png" alt="과학데이 자동차 선전행렬" class="photo-image">
+                    <div class="photo-caption" data-description="1935년 동아일보에 실린 과학데이 자동차 선전행렬">
+                        <h4>과학데이 자동차 선전행렬</h4>
+                    </div>
+                </div>
+                <div class="photo-item">
+                    <img src="assets/img/photo/1-가-2-4_평양과학데이 행렬(동아일보, 1935)-01.png" alt="평양과학데이 행렬" class="photo-image">
+                    <div class="photo-caption" data-description="1935년 평양에서 열린 과학데이 행렬 모습">
+                        <h4>평양과학데이 행렬</h4>
+                    </div>
+                </div>
+                <div class="photo-item">
+                    <img src="assets/img/photo/과학데이사진6_과학데이 당일 강연회 광경(과학조선, 1935).jpg" alt="과학데이 강연회" class="photo-image">
+                    <div class="photo-caption" data-description="1935년 과학데이 당일 강연회 광경">
+                        <h4>과학데이 강연회</h4>
+                    </div>
+                </div>
+                <div class="photo-item">
+                    <img src="assets/img/photo/과학데이사진7_제1회 과학데이 남녀견학단.jpg" alt="과학데이 남녀견학단" class="photo-image">
+                    <div class="photo-caption" data-description="1934년 제1회 과학데이 남녀견학단 모습">
+                        <h4>제1회 과학데이 남녀견학단</h4>
+                    </div>
+                </div>
+                <div class="photo-item">
+                    <img src="assets/img/photo/1-2-C-1_발명품전람회장(1937).jpg" alt="발명품전람회장" class="photo-image">
+                    <div class="photo-caption" data-description="1937년 발명품전람회장 모습">
+                        <h4>발명품전람회장</h4>
+                    </div>
+                </div>
+                <div class="photo-item">
+                    <img src="assets/img/photo/과학데이사진8_신천과학지식보급회주최(과학조선, 1935).jpg" alt="신천과학지식보급회" class="photo-image">
+                    <div class="photo-caption" data-description="1935년 신천과학지식보급회 주최 행사">
+                        <h4>신천과학지식보급회</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 카드뉴스 보기 화면 -->
+        <div id="cardnewsScreen" class="screen">
+            <!-- 네비게이션 버튼 -->
+            <div class="nav-buttons">
+                <button class="nav-btn" data-screen="main">홈</button>
+                <button class="nav-btn" data-screen="poster">과학데이 포스터</button>
+                <button class="nav-btn" data-screen="photos">과학데이 사진</button>
+                <button class="nav-btn active" data-screen="cardnews">과학데이 카드뉴스</button>
+            </div>
+            
+            <div class="cardnews-container">
+                <div class="cardnews-item active">
+                    <img src="assets/img/card_news/과학데이_카드뉴스1_20150422.png" alt="과학데이 카드뉴스 1" class="card-image">
+                </div>
+                <div class="cardnews-item">
+                    <img src="assets/img/card_news/과학데이_카드뉴스2_20150422.png" alt="과학데이 카드뉴스 2" class="card-image">
+                </div>
+                <div class="cardnews-item">
+                    <img src="assets/img/card_news/과학데이_카드뉴스3_20150422.png" alt="과학데이 카드뉴스 3" class="card-image">
+                </div>
+                <div class="cardnews-item">
+                    <img src="assets/img/card_news/과학데이_카드뉴스4_20150422.png" alt="과학데이 카드뉴스 4" class="card-image">
+                </div>
+                <div class="cardnews-item">
+                    <img src="assets/img/card_news/과학데이_카드뉴스5_20150422.png" alt="과학데이 카드뉴스 5" class="card-image">
+                </div>
+                <div class="cardnews-item">
+                    <img src="assets/img/card_news/과학데이_카드뉴스6_20150422.png" alt="과학데이 카드뉴스 6" class="card-image">
+                </div>
+                <div class="cardnews-item">
+                    <img src="assets/img/card_news/과학데이_카드뉴스7_20150422.png" alt="과학데이 카드뉴스 7" class="card-image">
+                </div>
+                <div class="cardnews-item">
+                    <img src="assets/img/card_news/과학데이_카드뉴스8_20150422.png" alt="과학데이 카드뉴스 8" class="card-image">
+                </div>
+                <div class="cardnews-item">
+                    <img src="assets/img/card_news/과학데이_카드뉴스9_20150422.png" alt="과학데이 카드뉴스 9" class="card-image">
+                </div>
+                <div class="cardnews-item">
+                    <img src="assets/img/card_news/과학데이_카드뉴스13_20150422.png" alt="과학데이 카드뉴스 13" class="card-image">
+                </div>
+                <div class="cardnews-item">
+                    <img src="assets/img/card_news/과학데이_카드뉴스14_20150422.png" alt="과학데이 카드뉴스 14" class="card-image">
+                </div>
+                <div class="cardnews-item">
+                    <img src="assets/img/card_news/과학데이_카드뉴스15_20150422.png" alt="과학데이 카드뉴스 15" class="card-image">
+                </div>
+                <div class="cardnews-item">
+                    <img src="assets/img/card_news/과학데이_카드뉴스16_20150422.png" alt="과학데이 카드뉴스 16" class="card-image">
+                </div>
+                <div class="cardnews-item">
+                    <img src="assets/img/card_news/과학데이_카드뉴스17_20150422.png" alt="과학데이 카드뉴스 17" class="card-image">
+                </div>
+                <div class="cardnews-item">
+                    <img src="assets/img/card_news/과학데이_카드뉴스18_20150422.png" alt="과학데이 카드뉴스 18" class="card-image">
+                </div>
+                <div class="cardnews-item">
+                    <img src="assets/img/card_news/과학데이_카드뉴스19_20150422.png" alt="과학데이 카드뉴스 19" class="card-image">
+                </div>
+            </div>
+            <div class="cardnews-controls">
+                <button class="card-btn prev-card">◀</button>
+                <div class="card-indicators">
+                    <span class="card-indicator active"></span>
+                    <span class="card-indicator"></span>
+                    <span class="card-indicator"></span>
+                    <span class="card-indicator"></span>
+                    <span class="card-indicator"></span>
+                    <span class="card-indicator"></span>
+                    <span class="card-indicator"></span>
+                    <span class="card-indicator"></span>
+                    <span class="card-indicator"></span>
+                    <span class="card-indicator"></span>
+                    <span class="card-indicator"></span>
+                    <span class="card-indicator"></span>
+                    <span class="card-indicator"></span>
+                    <span class="card-indicator"></span>
+                    <span class="card-indicator"></span>
+                    <span class="card-indicator"></span>
+                </div>
+                <button class="card-btn next-card">▶</button>
+            </div>
+        </div>
+    </main>
+
+
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="renderer.js"></script>
 </body>
 </html> 

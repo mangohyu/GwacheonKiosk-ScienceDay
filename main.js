@@ -1,22 +1,25 @@
-const { app, BrowserWindow, Menu } = require('electron');
+const { app, BrowserWindow, Menu, ipcMain } = require('electron');
 const path = require('path');
+const os = require('os');
 
 let mainWindow;
 
 function createWindow() {
   // 윈도우7 호환성을 위한 설정
   mainWindow = new BrowserWindow({
-    width: 1200,
-    height: 800,
-    minWidth: 800,
-    minHeight: 600,
+    width: 1600,
+    height: 900,
+    minWidth: 1600,
+    minHeight: 900,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
       enableRemoteModule: true
     },
     icon: path.join(__dirname, 'icon.ico'),
-    show: false
+    show: false,
+    fullscreenable: true,
+    autoHideMenuBar: false
   });
 
   // 윈도우가 준비되면 표시
@@ -35,6 +38,16 @@ function createWindow() {
     mainWindow = null;
   });
 }
+
+// 시스템 정보 핸들러 등록
+ipcMain.handle('get-system-info', async () => {
+  return {
+    platform: os.platform(),
+    nodeVersion: process.version,
+    electronVersion: process.versions.electron,
+    chromeVersion: process.versions.chrome
+  };
+});
 
 // 앱이 준비되면 윈도우 생성
 app.whenReady().then(() => {
