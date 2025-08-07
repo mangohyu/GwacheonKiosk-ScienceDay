@@ -1,0 +1,41 @@
+{
+  "name": "gwacheon-app",
+  "version": "1.0.0",
+  "description": "과천 명예의 전당 키오스크",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder",
+    "build:32": "electron-builder --win --ia32",
+    "build:64": "electron-builder --win --x64",
+    "dist": "electron-builder --publish=never"
+  },
+  "keywords": ["electron", "gwacheon"],
+  "author": "Your Name",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "22.3.27",
+    "electron-builder": "^24.6.4"
+  },
+  "build": {
+    "appId": "com.gwacheon.app",
+    "productName": "Gwacheon App",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "main.js",
+      "renderer.js",
+      "index.html",
+      "styles.css",
+      "package.json"
+    ],
+    "win": {
+      "target": "portable",
+      "icon": "icon.ico"
+    },
+    "portable": {
+      "artifactName": "GwacheonApp.exe"
+    }
+  }
+} 

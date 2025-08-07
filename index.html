@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>과천 애플리케이션</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>과천 애플리케이션</h1>
+            <p>윈도우7 호환 일렉트론 앱</p>
+        </header>
+        
+        <main class="main-content">
+            <div class="card">
+                <h2>환영합니다!</h2>
+                <p>이 애플리케이션은 윈도우7에서 실행 가능하도록 설계되었습니다.</p>
+                <button id="testButton" class="btn">테스트 버튼</button>
+            </div>
+            
+            <div class="card">
+                <h2>시스템 정보</h2>
+                <div id="systemInfo" class="info-grid">
+                    <div class="info-item">
+                        <span class="label">플랫폼:</span>
+                        <span id="platform" class="value">로딩 중...</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">Node.js 버전:</span>
+                        <span id="nodeVersion" class="value">로딩 중...</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">일렉트론 버전:</span>
+                        <span id="electronVersion" class="value">로딩 중...</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">Chrome 버전:</span>
+                        <span id="chromeVersion" class="value">로딩 중...</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h2>기능 테스트</h2>
+                <div class="button-group">
+                    <button id="alertBtn" class="btn btn-secondary">알림 표시</button>
+                    <button id="fileBtn" class="btn btn-secondary">파일 선택</button>
+                    <button id="timeBtn" class="btn btn-secondary">현재 시간</button>
+                </div>
+                <div id="output" class="output-area"></div>
+            </div>
+        </main>
+        
+        <footer class="footer">
+            <p>&copy; 2024 과천 애플리케이션. 일렉트론 22.3.27 기반</p>
+        </footer>
+    </div>
+    
+    <script src="renderer.js"></script>
+</body>
+</html> 
