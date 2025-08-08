@@ -7,28 +7,30 @@ class KioskApp {
         this.currentCardIndex = 0;
         this.currentPosterIndex = 0;
         this.posterSwiper = null;
+        this.cardnewsSwiper = null;
         
         // DOM 요소 캐싱
-        this.cachedElements = {};
+        this.cachedElements = new Map();
         this.resizeTimeout = null;
         this.activePopups = new Set();
         
         this.init();
+        this.setupTouchRipple();
     }
 
     // DOM 요소 캐싱 메서드
     getElement(selector) {
-        if (!this.cachedElements[selector]) {
-            this.cachedElements[selector] = document.querySelector(selector);
+        if (!this.cachedElements.has(selector)) {
+            this.cachedElements.set(selector, document.querySelector(selector));
         }
-        return this.cachedElements[selector];
+        return this.cachedElements.get(selector);
     }
 
     getElements(selector) {
-        if (!this.cachedElements[selector]) {
-            this.cachedElements[selector] = document.querySelectorAll(selector);
+        if (!this.cachedElements.has(selector)) {
+            this.cachedElements.set(selector, document.querySelectorAll(selector));
         }
-        return this.cachedElements[selector];
+        return this.cachedElements.get(selector);
     }
 
     init() {
@@ -366,13 +368,47 @@ class KioskApp {
         this.showCard(newIndex);
     }
 
+    setupTouchRipple() {
+        // 클릭 이벤트 리스너 추가
+        document.addEventListener('click', (e) => {
+            this.createTouchRipple(e.clientX, e.clientY);
+        }, { passive: true });
+
+        // 터치 이벤트 리스너 추가 (모바일용)
+        document.addEventListener('touchstart', (e) => {
+            const touch = e.touches[0];
+            this.createTouchRipple(touch.clientX, touch.clientY);
+        }, { passive: true });
+    }
+
+    createTouchRipple(x, y) {
+        // 기존 터치 리플 제거
+        const existingRipples = document.querySelectorAll('.touch-ripple');
+        existingRipples.forEach(ripple => ripple.remove());
+
+        // 새로운 터치 리플 생성
+        const ripple = document.createElement('div');
+        ripple.className = 'touch-ripple';
+        ripple.style.left = x + 'px';
+        ripple.style.top = y + 'px';
+        
+        document.body.appendChild(ripple);
+
+        // 애니메이션 완료 후 요소 제거
+        setTimeout(() => {
+            if (ripple.parentNode) {
+                ripple.parentNode.removeChild(ripple);
+            }
+        }, 600);
+    }
+
     // 메모리 정리
     destroy() {
         if (this.posterSwiper) {
             this.posterSwiper.destroy(true, true);
         }
         this.closeAllPopups();
-        this.cachedElements = {};
+        this.cachedElements.clear();
         
         if (this.resizeTimeout) {
             clearTimeout(this.resizeTimeout);
