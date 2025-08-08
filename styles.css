@@ -11,6 +11,25 @@
     box-sizing: border-box;
 }
 
+/* 성능 최적화를 위한 CSS 속성 */
+* {
+    /* GPU 가속 활성화 */
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+}
+
+/* 이미지 최적화 */
+img {
+    max-width: 100%;
+    height: auto;
+    /* 이미지 렌더링 최적화 */
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+    -webkit-user-drag: none; /* Safari/Chrome */
+    user-drag: none;         /* 비표준, 일부 브라우저 */
+}
+
 body {
     font-family: 'Noto Sans KR', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background: url(assets/img/background_img.jpg) center center fixed;
@@ -83,19 +102,27 @@ body {
 .screen {
     display: none;
     opacity: 0;
-    transform: translateY(10px);
+    transform: translate3d(0, 10px, 0);
     transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+    /* GPU 가속 활성화 */
+    will-change: opacity, transform;
 }
 
 .screen.active {
     display: block;
     opacity: 1;
-    transform: translateY(0);
+    transform: translate3d(0, 0, 0);
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+    from { 
+        opacity: 0; 
+        transform: translate3d(0, 20px, 0); 
+    }
+    to { 
+        opacity: 1; 
+        transform: translate3d(0, 0, 0); 
+    }
 }
 
 /* 메인 화면 */
@@ -131,6 +158,29 @@ body {
     margin-bottom: 20px;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
     letter-spacing: 3px;
+}
+
+.hero-subtitle {
+    text-align: center;
+    margin-bottom: 40px;
+    animation: fadeIn 1.2s ease-out;
+}
+
+.hero-subtitle p {
+    font-family: 'Paperlogy', 'Noto Sans KR', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: #000000;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    margin: 8px 0;
+    letter-spacing: 1px;
+    line-height: 1.6;
+}
+
+.hero-subtitle p:first-child {
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-bottom: 12px;
 }
 
 .hero-quotes {
@@ -215,6 +265,9 @@ body {
     -ms-backdrop-filter: blur(clamp(1px, 0.125em, 4px));
     transition: all 400ms cubic-bezier(0.25, 1, 0.5, 1);
     overflow: hidden;
+    /* GPU 가속 활성화 */
+    will-change: transform;
+    transform: translateZ(0);
 }
 
 /* 글래스 내부 반사 효과 */
@@ -328,9 +381,9 @@ body {
 
 /* 포스터 슬라이더 */
 .poster-slider-container {
-    max-width: 1400px;
-    width: 90vw;
-    margin: 0 auto 40px;
+    max-width: 100%;
+    width: 100%;
+    margin: 0 0 40px 0;
     position: relative;
     height: 600px;
     border-radius: 15px;
@@ -343,6 +396,7 @@ body {
 .poster-swiper {
     height: 100%;
     border-radius: 15px;
+    padding: 0 40px;
 }
 
 .poster-swiper .swiper-slide {
@@ -363,20 +417,17 @@ body {
 /* Swiper 네비게이션 버튼 커스터마이징 */
 .poster-swiper .swiper-button-next,
 .poster-swiper .swiper-button-prev {
-    color: #3498db;
-    background: rgba(255, 255, 255, 0.9);
+    color: #666666;
+    background: rgba(255, 255, 255);
     width: 50px;
     height: 50px;
     border-radius: 50%;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     transition: all 0.3s ease;
+    margin-top: -25px;
 }
 
-.poster-swiper .swiper-button-next:hover,
-.poster-swiper .swiper-button-prev:hover {
-    background: rgba(255, 255, 255, 1);
-    transform: scale(1.1);
-}
+
 
 .poster-swiper .swiper-button-next::after,
 .poster-swiper .swiper-button-prev::after {
@@ -390,7 +441,7 @@ body {
 }
 
 .poster-swiper .swiper-pagination-bullet {
-    background: rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.9);
     opacity: 1;
     width: 12px;
     height: 12px;
@@ -399,7 +450,7 @@ body {
 }
 
 .poster-swiper .swiper-pagination-bullet-active {
-    background: #3498db;
+    background: #666666;
     transform: scale(1.2);
 }
 
@@ -833,9 +884,9 @@ body {
 /* 사진 갤러리 */
 .photo-gallery {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 20px;
-    padding: 15px;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 25px;
+    padding: 20px;
     max-height: calc(900px - 200px);
     overflow-y: auto;
 }
@@ -869,6 +920,7 @@ body {
 
 
 .photo-caption {
+    text-align: center;
     padding: 15px;
 }
 
@@ -1217,11 +1269,11 @@ body {
 
 
 .nav-btn.active {
-    background: rgba(52, 152, 219, 0.15);
-    border-color: rgba(52, 152, 219, 0.3);
-    box-shadow: 0 2px 8px rgba(52, 152, 219, 0.2);
-    color: rgba(255, 255, 255, 0.95);
-    font-weight: 500;
+    background: rgba(44, 62, 80, 0.8);
+    border-color: rgba(44, 62, 80, 0.9);
+    box-shadow: 0 2px 8px rgba(44, 62, 80, 0.4);
+    color: #ffffff;
+    font-weight: 600;
 }
 
 
@@ -1342,6 +1394,14 @@ body {
         font-size: 2.5rem;
     }
     
+    .hero-subtitle p {
+        font-size: 1rem;
+    }
+    
+    .hero-subtitle p:first-child {
+        font-size: 1.2rem;
+    }
+    
     .hero-description {
         font-size: 1.2rem;
     }
@@ -1369,7 +1429,7 @@ body {
     /* 포스터 슬라이더 반응형 */
     .poster-slider-container {
         height: 400px;
-        width: 95vw;
+        width: 100%;
     }
     
     .poster-group {
@@ -1414,6 +1474,25 @@ body {
         width: 10px;
         height: 10px;
     }
+    
+    /* 사진 갤러리 반응형 */
+    .photo-gallery {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 15px;
+        padding: 15px;
+    }
+    
+    .photo-item {
+        padding: 10px;
+    }
+    
+    .photo-image {
+        height: 180px;
+    }
+    
+    .photo-caption h4 {
+        font-size: 1rem;
+    }
 }
 
 /* 스크롤바 스타일 */
@@ -1422,15 +1501,21 @@ body {
 }
 
 .photo-gallery::-webkit-scrollbar {
-    width: 6px;
+    width: 8px;
 }
 
 .photo-gallery::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
 }
 
 .photo-gallery::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.5);
+    background: rgba(0, 0, 0, 0.8);
+    border-radius: 4px;
+}
+
+.photo-gallery::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 1);
 }
 
 
